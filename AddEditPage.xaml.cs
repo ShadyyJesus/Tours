@@ -23,6 +23,12 @@ namespace LabWPF
         public AddEditPage()
         {
             InitializeComponent();
+            ComboCountries.ItemsSource = toursEntities.GetContext().Страны.ToList();
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище toursModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Ваучер">
+          <Key>
+            <PropertyRef Name="Код_ваучера" />
+          </Key>
+          <Property Name="Код_ваучера" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Код_клиента" Type="int" />
+          <Property Name="ФИО_клиента" Type="nchar" MaxLength="10" />
+          <Property Name="Ваучер_на_трансфер" Type="nchar" MaxLength="10" />
+          <Property Name="Ваучер_на_заселение" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Документы">
+          <Key>
+            <PropertyRef Name="Код_документов" />
+          </Key>
+          <Property Name="Код_документов" Type="int" Nullable="false" />
+          <Property Name="Код_клиента" Type="int" />
+          <Property Name="Билет_на_самолет" Type="nchar" MaxLength="10" />
+          <Property Name="Страховой_полис" Type="nchar" MaxLength="10" />
+          <Property Name="Виза" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Заявки">
+          <Key>
+            <PropertyRef Name="Код_заявки" />
+          </Key>
+          <Property Name="Код_заявки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Код_клиента" Type="int" />
+          <Property Name="Предпочтения" Type="nchar" MaxLength="10" />
+          <Property Name="Тип_питания" Type="nchar" MaxLength="5" />
+          <Property Name="Дата_тура" Type="date" />
+          <Property Name="Верхняя_грань_стоимости" Type="int" />
+          <Property Name="Нижняя_грань_стоимости" Type="int" />
+          <Property Name="Дополнительные_услуги" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Клиенты">
+          <Key>
+            <PropertyRef Name="Код_клиента" />
+          </Key>
+          <Property Name="Код_клиента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Имя" Type="nchar" MaxLength="10" />
+          <Property Name="Фамилия" Type="nchar" MaxLength="10" />
+          <Property Name="Год_рождения" Type="int" />
+        </EntityType>
+        <EntityType Name="Отели">
+          <Key>
+            <PropertyRef Name="Код_отеля" />
+          </Key>
+          <Property Name="Код_отеля" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nchar" MaxLength="50" />
+          <Property Name="Количество_звезд" Type="int" />
+          <Property Name="Код_страны" Type="nchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Страны">
+          <Key>
+            <PropertyRef Name="Сокращение" />
+          </Key>
+          <Property Name="Сокращение" Type="nchar" MaxLength="2" Nullable="false" />
+          <Property Name="Название" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Тип_питания">
+          <Key>
+            <PropertyRef Name="Код_питания" />
+          </Key>
+          <Property Name="Код_питания" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="Тип_питания" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Тип_Тур">
+          <Key>
+            <PropertyRef Name="Код_типтура" />
+          </Key>
+          <Property Name="Код_типтура" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Код_тура" Type="int" />
+          <Property Name="Наименование" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Тур_Отель">
+          <Key>
+            <PropertyRef Name="Код_отельтур" />
+          </Key>
+          <Property Name="Код_отельтур" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Код_отеля" Type="int" />
+          <Property Name="Код_тура" Type="int" />
+        </EntityType>
+        <EntityType Name="Туры">
+          <Key>
+            <PropertyRef Name="Код_тура" />
+          </Key>
+          <Property Name="Код_тура" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nchar" MaxLength="10" />
+          <Property Name="Перечень_услуг" Type="int" />
+          <Property Name="Код_страны" Type="nchar" MaxLength="10" />
+          <Property Name="Количество_билетов" Type="int" />
+          <Property Name="Стоимость" Type="int" />
+        </EntityType>
+        <Association Name="FK_Ваучер_Клиенты">
+          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="0..1" />
+          <End Role="Ваучер" Type="Self.Ваучер" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиенты">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Ваучер">
+              <PropertyRef Name="Код_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Документы_Клиенты">
+          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="0..1" />
+          <End Role="Документы" Type="Self.Документы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиенты">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Документы">
+              <PropertyRef Name="Код_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заявки_Клиенты">
+          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="0..1" />
+          <End Role="Заявки" Type="Self.Заявки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиенты">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Заявки">
+              <PropertyRef Name="Код_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заявки_Тип_питания">
+          <End Role="Тип_питания" Type="Self.Тип_питания" Multiplicity="0..1" />
+          <End Role="Заявки" Type="Self.Заявки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_питания">
+              <PropertyRef Name="Код_питания" />
+            </Principal>
+            <Dependent Role="Заявки">
+              <PropertyRef Name="Тип_питания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Отели_Страны">
+          <End Role="Страны" Type="Self.Страны" Multiplicity="0..1" />
+          <End Role="Отели" Type="Self.Отели" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Страны">
+              <PropertyRef Name="Сокращение" />
+            </Principal>
+            <Dependent Role="Отели">
+              <PropertyRef Name="Код_страны" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Тип_Тур_Туры">
+          <End Role="Туры" Type="Self.Туры" Multiplicity="0..1" />
+          <End Role="Тип_Тур" Type="Self.Тип_Тур" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Туры">
+              <PropertyRef Name="Код_тура" />
+            </Principal>
+            <Dependent Role="Тип_Тур">
+              <PropertyRef Name="Код_тура" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Тур_Отель_Отели">
+          <End Role="Отели" Type="Self.Отели" Multiplicity="0..1" />
+          <End Role="Тур_Отель" Type="Self.Тур_Отель" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Отели">
+              <PropertyRef Name="Код_отеля" />
+            </Principal>
+            <Dependent Role="Тур_Отель">
+              <PropertyRef Name="Код_отеля" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Тур_Отель_Туры">
+          <End Role="Туры" Type="Self.Туры" Multiplicity="0..1" />
+          <End Role="Тур_Отель" Type="Self.Тур_Отель" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Туры">
+              <PropertyRef Name="Код_тура" />
+            </Principal>
+            <Dependent Role="Тур_Отель">
+              <PropertyRef Name="Код_тура" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище toursModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ваучер" EntityType="Self.Ваучер" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Документы" EntityType="Self.Документы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Заявки" EntityType="Self.Заявки" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Клиенты" EntityType="Self.Клиенты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Отели" EntityType="Self.Отели" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Страны" EntityType="Self.Страны" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тип_питания" EntityType="Self.Тип_питания" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тип_Тур" EntityType="Self.Тип_Тур" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тур_Отель" EntityType="Self.Тур_Отель" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Туры" EntityType="Self.Туры" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ваучер_Клиенты" Association="Self.FK_Ваучер_Клиенты">
+            <End Role="Клиенты" EntitySet="Клиенты" />
+            <End Role="Ваучер" EntitySet="Ваучер" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Документы_Клиенты" Association="Self.FK_Документы_Клиенты">
+            <End Role="Клиенты" EntitySet="Клиенты" />
+            <End Role="Документы" EntitySet="Документы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заявки_Клиенты" Association="Self.FK_Заявки_Клиенты">
+            <End Role="Клиенты" EntitySet="Клиенты" />
+            <End Role="Заявки" EntitySet="Заявки" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заявки_Тип_питания" Association="Self.FK_Заявки_Тип_питания">
+            <End Role="Тип_питания" EntitySet="Тип_питания" />
+            <End Role="Заявки" EntitySet="Заявки" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Отели_Страны" Association="Self.FK_Отели_Страны">
+            <End Role="Страны" EntitySet="Страны" />
+            <End Role="Отели" EntitySet="Отели" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Тип_Тур_Туры" Association="Self.FK_Тип_Тур_Туры">
+            <End Role="Туры" EntitySet="Туры" />
+            <End Role="Тип_Тур" EntitySet="Тип_Тур" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Тур_Отель_Отели" Association="Self.FK_Тур_Отель_Отели">
+            <End Role="Отели" EntitySet="Отели" />
+            <End Role="Тур_Отель" EntitySet="Тур_Отель" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Тур_Отель_Туры" Association="Self.FK_Тур_Отель_Туры">
+            <End Role="Туры" EntitySet="Туры" />
+            <End Role="Тур_Отель" EntitySet="Тур_Отель" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="toursModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Ваучер">
+          <Key>
+            <PropertyRef Name="Код_ваучера" />
+          </Key>
+          <Property Name="Код_ваучера" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Код_клиента" Type="Int32" />
+          <Property Name="ФИО_клиента" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ваучер_на_трансфер" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ваучер_на_заселение" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Клиенты" Relationship="Self.FK_Ваучер_Клиенты" FromRole="Ваучер" ToRole="Клиенты" />
+        </EntityType>
+        <EntityType Name="Документы">
+          <Key>
+            <PropertyRef Name="Код_документов" />
+          </Key>
+          <Property Name="Код_документов" Type="Int32" Nullable="false" />
+          <Property Name="Код_клиента" Type="Int32" />
+          <Property Name="Билет_на_самолет" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Страховой_полис" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Виза" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Клиенты" Relationship="Self.FK_Документы_Клиенты" FromRole="Документы" ToRole="Клиенты" />
+        </EntityType>
+        <EntityType Name="Заявки">
+          <Key>
+            <PropertyRef Name="Код_заявки" />
+          </Key>
+          <Property Name="Код_заявки" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Код_клиента" Type="Int32" />
+          <Property Name="Предпочтения" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Тип_питания" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="Дата_тура" Type="DateTime" Precision="0" />
+          <Property Name="Верхняя_грань_стоимости" Type="Int32" />
+          <Property Name="Нижняя_грань_стоимости" Type="Int32" />
+          <Property Name="Дополнительные_услуги" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Клиенты" Relationship="Self.FK_Заявки_Клиенты" FromRole="Заявки" ToRole="Клиенты" />
+          <NavigationProperty Name="Тип_питания1" Relationship="Self.FK_Заявки_Тип_питания" FromRole="Заявки" ToRole="Тип_питания" />
+        </EntityType>
+        <EntityType Name="Клиенты">
+          <Key>
+            <PropertyRef Name="Код_клиента" />
+          </Key>
+          <Property Name="Код_клиента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Имя" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Фамилия" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Год_рождения" Type="Int32" />
+          <NavigationProperty Name="Ваучер" Relationship="Self.FK_Ваучер_Клиенты" FromRole="Клиенты" ToRole="Ваучер" />
+          <NavigationProperty Name="Документы" Relationship="Self.FK_Документы_Клиенты" FromRole="Клиенты" ToRole="Документы" />
+          <NavigationProperty Name="Заявки" Relationship="Self.FK_Заявки_Клиенты" FromRole="Клиенты" ToRole="Заявки" />
+        </EntityType>
+        <EntityType Name="Отели">
+          <Key>
+            <PropertyRef Name="Код_отеля" />
+          </Key>
+          <Property Name="Код_отеля" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Количество_звезд" Type="Int32" />
+          <Property Name="Код_страны" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Страны" Relationship="Self.FK_Отели_Страны" FromRole="Отели" ToRole="Страны" />
+          <NavigationProperty Name="Тур_Отель" Relationship="Self.FK_Тур_Отель_Отели" FromRole="Отели" ToRole="Тур_Отель" />
+        </EntityType>
+        <EntityType Name="Страны">
+          <Key>
+            <PropertyRef Name="Сокращение" />
+          </Key>
+          <Property Name="Сокращение" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Отели" Relationship="Self.FK_Отели_Страны" FromRole="Страны" ToRole="Отели" />
+        </EntityType>
+        <EntityType Name="Тип_питания">
+          <Key>
+            <PropertyRef Name="Код_питания" />
+          </Key>
+          <Property Name="Код_питания" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Тип_питания1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Заявки" Relationship="Self.FK_Заявки_Тип_питания" FromRole="Тип_питания" ToRole="Заявки" />
+        </EntityType>
+        <EntityType Name="Тип_Тур">
+          <Key>
+            <PropertyRef Name="Код_типтура" />
+          </Key>
+          <Property Name="Код_типтура" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Код_тура" Type="Int32" />
+          <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Туры" Relationship="Self.FK_Тип_Тур_Туры" FromRole="Тип_Тур" ToRole="Туры" />
+        </EntityType>
+        <EntityType Name="Тур_Отель">
+          <Key>
+            <PropertyRef Name="Код_отельтур" />
+          </Key>
+          <Property Name="Код_отельтур" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Код_отеля" Type="Int32" />
+          <Property Name="Код_тура" Type="Int32" />
+          <NavigationProperty Name="Отели" Relationship="Self.FK_Тур_Отель_Отели" FromRole="Тур_Отель" ToRole="Отели" />
+          <NavigationProperty Name="Туры" Relationship="Self.FK_Тур_Отель_Туры" FromRole="Тур_Отель" ToRole="Туры" />
+        </EntityType>
+        <EntityType Name="Туры">
+          <Key>
+            <PropertyRef Name="Код_тура" />
+          </Key>
+          <Property Name="Код_тура" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Перечень_услуг" Type="Int32" />
+          <Property Name="Код_страны" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Количество_билетов" Type="Int32" />
+          <Property Name="Стоимость" Type="Int32" />
+          <NavigationProperty Name="Тип_Тур" Relationship="Self.FK_Тип_Тур_Туры" FromRole="Туры" ToRole="Тип_Тур" />
+          <NavigationProperty Name="Тур_Отель" Relationship="Self.FK_Тур_Отель_Туры" FromRole="Туры" ToRole="Тур_Отель" />
+        </EntityType>
+        <Association Name="FK_Ваучер_Клиенты">
+          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="0..1" />
+          <End Role="Ваучер" Type="Self.Ваучер" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиенты">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Ваучер">
+              <PropertyRef Name="Код_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Документы_Клиенты">
+          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="0..1" />
+          <End Role="Документы" Type="Self.Документы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиенты">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Документы">
+              <PropertyRef Name="Код_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заявки_Клиенты">
+          <End Role="Клиенты" Type="Self.Клиенты" Multiplicity="0..1" />
+          <End Role="Заявки" Type="Self.Заявки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиенты">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Заявки">
+              <PropertyRef Name="Код_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заявки_Тип_питания">
+          <End Role="Тип_питания" Type="Self.Тип_питания" Multiplicity="0..1" />
+          <End Role="Заявки" Type="Self.Заявки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_питания">
+              <PropertyRef Name="Код_питания" />
+            </Principal>
+            <Dependent Role="Заявки">
+              <PropertyRef Name="Тип_питания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Отели_Страны">
+          <End Role="Страны" Type="Self.Страны" Multiplicity="0..1" />
+          <End Role="Отели" Type="Self.Отели" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Страны">
+              <PropertyRef Name="Сокращение" />
+            </Principal>
+            <Dependent Role="Отели">
+              <PropertyRef Name="Код_страны" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Тур_Отель_Отели">
+          <End Role="Отели" Type="Self.Отели" Multiplicity="0..1" />
+          <End Role="Тур_Отель" Type="Self.Тур_Отель" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Отели">
+              <PropertyRef Name="Код_отеля" />
+            </Principal>
+            <Dependent Role="Тур_Отель">
+              <PropertyRef Name="Код_отеля" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Тип_Тур_Туры">
+          <End Role="Туры" Type="Self.Туры" Multiplicity="0..1" />
+          <End Role="Тип_Тур" Type="Self.Тип_Тур" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Туры">
+              <PropertyRef Name="Код_тура" />
+            </Principal>
+            <Dependent Role="Тип_Тур">
+              <PropertyRef Name="Код_тура" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Тур_Отель_Туры">
+          <End Role="Туры" Type="Self.Туры" Multiplicity="0..1" />
+          <End Role="Тур_Отель" Type="Self.Тур_Отель" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Туры">
+              <PropertyRef Name="Код_тура" />
+            </Principal>
+            <Dependent Role="Тур_Отель">
+              <PropertyRef Name="Код_тура" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="toursEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Ваучер" EntityType="Self.Ваучер" />
+          <EntitySet Name="Документы" EntityType="Self.Документы" />
+          <EntitySet Name="Заявки" EntityType="Self.Заявки" />
+          <EntitySet Name="Клиенты" EntityType="Self.Клиенты" />
+          <EntitySet Name="Отели" EntityType="Self.Отели" />
+          <EntitySet Name="Страны" EntityType="Self.Страны" />
+          <EntitySet Name="Тип_питания" EntityType="Self.Тип_питания" />
+          <EntitySet Name="Тип_Тур" EntityType="Self.Тип_Тур" />
+          <EntitySet Name="Тур_Отель" EntityType="Self.Тур_Отель" />
+          <EntitySet Name="Туры" EntityType="Self.Туры" />
+          <AssociationSet Name="FK_Ваучер_Клиенты" Association="Self.FK_Ваучер_Клиенты">
+            <End Role="Клиенты" EntitySet="Клиенты" />
+            <End Role="Ваучер" EntitySet="Ваучер" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Документы_Клиенты" Association="Self.FK_Документы_Клиенты">
+            <End Role="Клиенты" EntitySet="Клиенты" />
+            <End Role="Документы" EntitySet="Документы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заявки_Клиенты" Association="Self.FK_Заявки_Клиенты">
+            <End Role="Клиенты" EntitySet="Клиенты" />
+            <End Role="Заявки" EntitySet="Заявки" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заявки_Тип_питания" Association="Self.FK_Заявки_Тип_питания">
+            <End Role="Тип_питания" EntitySet="Тип_питания" />
+            <End Role="Заявки" EntitySet="Заявки" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Отели_Страны" Association="Self.FK_Отели_Страны">
+            <End Role="Страны" EntitySet="Страны" />
+            <End Role="Отели" EntitySet="Отели" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Тур_Отель_Отели" Association="Self.FK_Тур_Отель_Отели">
+            <End Role="Отели" EntitySet="Отели" />
+            <End Role="Тур_Отель" EntitySet="Тур_Отель" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Тип_Тур_Туры" Association="Self.FK_Тип_Тур_Туры">
+            <End Role="Туры" EntitySet="Туры" />
+            <End Role="Тип_Тур" EntitySet="Тип_Тур" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Тур_Отель_Туры" Association="Self.FK_Тур_Отель_Туры">
+            <End Role="Туры" EntitySet="Туры" />
+            <End Role="Тур_Отель" EntitySet="Тур_Отель" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище toursModelContainer" CdmEntityContainer="toursEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="toursModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ваучер">
+            <EntityTypeMapping TypeName="toursModel.Ваучер">
+              <MappingFragment StoreEntitySet="Ваучер">
+                <ScalarProperty Name="Код_ваучера" ColumnName="Код_ваучера" />
+                <ScalarProperty Name="Код_клиента" ColumnName="Код_клиента" />
+                <ScalarProperty Name="ФИО_клиента" ColumnName="ФИО_клиента" />
+                <ScalarProperty Name="Ваучер_на_трансфер" ColumnName="Ваучер_на_трансфер" />
+                <ScalarProperty Name="Ваучер_на_заселение" ColumnName="Ваучер_на_заселение" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Документы">
+            <EntityTypeMapping TypeName="toursModel.Документы">
+              <MappingFragment StoreEntitySet="Документы">
+                <ScalarProperty Name="Код_документов" ColumnName="Код_документов" />
+                <ScalarProperty Name="Код_клиента" ColumnName="Код_клиента" />
+                <ScalarProperty Name="Билет_на_самолет" ColumnName="Билет_на_самолет" />
+                <ScalarProperty Name="Страховой_полис" ColumnName="Страховой_полис" />
+                <ScalarProperty Name="Виза" ColumnName="Виза" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Заявки">
+            <EntityTypeMapping TypeName="toursModel.Заявки">
+              <MappingFragment StoreEntitySet="Заявки">
+                <ScalarProperty Name="Код_заявки" ColumnName="Код_заявки" />
+                <ScalarProperty Name="Код_клиента" ColumnName="Код_клиента" />
+                <ScalarProperty Name="Предпочтения" ColumnName="Предпочтения" />
+                <ScalarProperty Name="Тип_питания" ColumnName="Тип_питания" />
+                <ScalarProperty Name="Дата_тура" ColumnName="Дата_тура" />
+                <ScalarProperty Name="Верхняя_грань_стоимости" ColumnName="Верхняя_грань_стоимости" />
+                <ScalarProperty Name="Нижняя_грань_стоимости" ColumnName="Нижняя_грань_стоимости" />
+                <ScalarProperty Name="Дополнительные_услуги" ColumnName="Дополнительные_услуги" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Клиенты">
+            <EntityTypeMapping TypeName="toursModel.Клиенты">
+              <MappingFragment StoreEntitySet="Клиенты">
+                <ScalarProperty Name="Код_клиента" ColumnName="Код_клиента" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Год_рождения" ColumnName="Год_рождения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Отели">
+            <EntityTypeMapping TypeName="toursModel.Отели">
+              <MappingFragment StoreEntitySet="Отели">
+                <ScalarProperty Name="Код_отеля" ColumnName="Код_отеля" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Количество_звезд" ColumnName="Количество_звезд" />
+                <ScalarProperty Name="Код_страны" ColumnName="Код_страны" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Страны">
+            <EntityTypeMapping TypeName="toursModel.Страны">
+              <MappingFragment StoreEntitySet="Страны">
+                <ScalarProperty Name="Сокращение" ColumnName="Сокращение" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тип_питания">
+            <EntityTypeMapping TypeName="toursModel.Тип_питания">
+              <MappingFragment StoreEntitySet="Тип_питания">
+                <ScalarProperty Name="Код_питания" ColumnName="Код_питания" />
+                <ScalarProperty Name="Тип_питания1" ColumnName="Тип_питания" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тип_Тур">
+            <EntityTypeMapping TypeName="toursModel.Тип_Тур">
+              <MappingFragment StoreEntitySet="Тип_Тур">
+                <ScalarProperty Name="Код_типтура" ColumnName="Код_типтура" />
+                <ScalarProperty Name="Код_тура" ColumnName="Код_тура" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тур_Отель">
+            <EntityTypeMapping TypeName="toursModel.Тур_Отель">
+              <MappingFragment StoreEntitySet="Тур_Отель">
+                <ScalarProperty Name="Код_отельтур" ColumnName="Код_отельтур" />
+                <ScalarProperty Name="Код_отеля" ColumnName="Код_отеля" />
+                <ScalarProperty Name="Код_тура" ColumnName="Код_тура" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Туры">
+            <EntityTypeMapping TypeName="toursModel.Туры">
+              <MappingFragment StoreEntitySet="Туры">
+                <ScalarProperty Name="Код_тура" ColumnName="Код_тура" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Перечень_услуг" ColumnName="Перечень_услуг" />
+                <ScalarProperty Name="Код_страны" ColumnName="Код_страны" />
+                <ScalarProperty Name="Количество_билетов" ColumnName="Количество_билетов" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
