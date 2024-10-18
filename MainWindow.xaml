@@ -17,6 +17,6 @@
         <Grid Background="#bae3e8" Panel.ZIndex="-2"></Grid>
         <Grid Grid.Row ="2" Background="#445c93"></Grid>
         <Frame NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Grid.Row="1" Name="MainFrame"></Frame>
-        <Button Content="Back" Name="BtnBack" HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
+        <Button Content="Назад" Name="BtnBack" HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
     </Grid>
 </Window>
