@@ -20,14 +20,6 @@ namespace LabWPF
             : base("name=toursEntities")
         {
         }
-        
-        public static toursEntities GetContext()
-        {
-            if(_context == null)
-                _context = new toursEntities();
-            return _context;
-            
-        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
