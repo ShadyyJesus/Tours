@@ -18,6 +18,7 @@ namespace LabWPF
         public Страны()
         {
             this.Отели = new HashSet<Отели>();
+            this.Туры = new HashSet<Туры>();
         }
     
         public string Сокращение { get; set; }
@@ -25,5 +26,7 @@ namespace LabWPF
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Отели> Отели { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Туры> Туры { get; set; }
     }
 }

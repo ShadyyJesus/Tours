@@ -63,6 +63,16 @@ namespace LabWPF.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NoImg {
+            get {
+                object obj = ResourceManager.GetObject("NoImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Travel {
             get {
                 object obj = ResourceManager.GetObject("Travel", resourceCulture);

@@ -14,19 +14,11 @@ namespace LabWPF
     
     public partial class Отели
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Отели()
-        {
-            this.Тур_Отель = new HashSet<Тур_Отель>();
-        }
-    
         public int Код_отеля { get; set; }
         public string Название { get; set; }
         public Nullable<int> Количество_звезд { get; set; }
         public string Код_страны { get; set; }
     
         public virtual Страны Страны { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Тур_Отель> Тур_Отель { get; set; }
     }
 }

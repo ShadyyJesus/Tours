@@ -19,11 +19,13 @@ namespace LabWPF
         public string Предпочтения { get; set; }
         public string Тип_питания { get; set; }
         public Nullable<System.DateTime> Дата_тура { get; set; }
+        public Nullable<int> Код_тура { get; set; }
         public Nullable<int> Верхняя_грань_стоимости { get; set; }
         public Nullable<int> Нижняя_грань_стоимости { get; set; }
         public string Дополнительные_услуги { get; set; }
     
         public virtual Клиенты Клиенты { get; set; }
         public virtual Тип_питания Тип_питания1 { get; set; }
+        public virtual Туры Туры { get; set; }
     }
 }

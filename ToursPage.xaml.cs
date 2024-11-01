@@ -23,6 +23,8 @@ namespace LabWPF
         public ToursPage()
         {
             InitializeComponent();
+            var currentTours = toursEntities.GetContext().Туры.ToList();
+            LViewTours.ItemsSource = currentTours;
         }
     }
 }

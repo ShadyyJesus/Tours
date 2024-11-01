@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
+using System.Linq;
 
 namespace LabWPF
 {
@@ -23,8 +13,47 @@ namespace LabWPF
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new HotelsPage());
+            MainFrame.Navigate(new ToursPage());
             Manager.MainFrame = MainFrame;
+            ImportTours();
+        }
+
+        private void ImportTours()
+        {
+            var fileData = File.ReadAllLines(@"C:\Users\Демоэкзамен\Desktop\ИСИП-22-1\Христофоров А. И\Туры.txt");
+            var image = Directory.GetFiles(@"C:\Users\Демоэкзамен\Desktop\ИСИП-22-1\Христофоров А. И\Туры фото");
+            
+            foreach (var line in fileData)
+            {
+                var data = line.Split('\t');
+                var tempTour = new Туры
+                {
+                    Название = data[0].Replace("\"", ""),
+                    Код_страны = data[1].ToString(),
+                    Количество_билетов = int.Parse(data[2]),
+                    Стоимость = decimal.Parse(data[3]),
+                    Статус = (data[4] == "0") ? false : true
+                };
+                foreach (var tourType in data[5].Split(new string[] {","}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    foreach (var currentType in toursEntities.GetContext().Тип_Тур.ToList())
+                    {
+                        if (currentType.Наименование.Trim() == tourType.Trim())
+                            tempTour.Тип_Тур.Add(currentType);
+                    }
+                       
+                }
+                try
+                {
+                    tempTour.Превью = File.ReadAllBytes(image.FirstOrDefault(p => p.Contains(tempTour.Название)));
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                toursEntities.GetContext().Туры.Add(tempTour);
+                toursEntities.GetContext().SaveChanges();
+            }
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

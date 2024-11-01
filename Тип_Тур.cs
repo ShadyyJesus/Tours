@@ -14,10 +14,16 @@ namespace LabWPF
     
     public partial class Тип_Тур
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Тип_Тур()
+        {
+            this.Туры = new HashSet<Туры>();
+        }
+    
         public int Код_типтура { get; set; }
-        public Nullable<int> Код_тура { get; set; }
         public string Наименование { get; set; }
     
-        public virtual Туры Туры { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Туры> Туры { get; set; }
     }
 }

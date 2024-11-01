@@ -17,20 +17,32 @@ namespace LabWPF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Туры()
         {
+            this.Заявки = new HashSet<Заявки>();
             this.Тип_Тур = new HashSet<Тип_Тур>();
-            this.Тур_Отель = new HashSet<Тур_Отель>();
         }
     
         public int Код_тура { get; set; }
         public string Название { get; set; }
         public Nullable<int> Перечень_услуг { get; set; }
+        public Nullable<int> Код_типа { get; set; }
         public string Код_страны { get; set; }
         public Nullable<int> Количество_билетов { get; set; }
-        public Nullable<int> Стоимость { get; set; }
+        public Nullable<decimal> Стоимость { get; set; }
+        public Nullable<bool> Статус { get; set; }
+        public byte[] Превью { get; set; }
+
+        public string ActualText
+        {
+            get
+            {
+                return (Статус).Value ? "Актуален" : "Завершен";
+            }
+        }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Тип_Тур> Тип_Тур { get; set; }
+        public virtual ICollection<Заявки> Заявки { get; set; }
+        public virtual Страны Страны { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Тур_Отель> Тур_Отель { get; set; }
+        public virtual ICollection<Тип_Тур> Тип_Тур { get; set; }
     }
 }

@@ -4,26 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="af7923585aaf4f128eba9f7ec4bcc288" Name="Diagram1">
-        <EntityTypeShape EntityType="toursModel.sysdiagrams" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Ваучер" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Документы" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Заявки" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Клиенты" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Отели" Width="1.5" PointX="10.875" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Страны" Width="1.5" PointX="12.875" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Тип_питания" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Тип_Тур" Width="1.5" PointX="11" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Тур_Отель" Width="1.5" PointX="8.625" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="toursModel.Туры" Width="1.5" PointX="8.75" PointY="3.5" IsExpanded="true" />
+      <Diagram DiagramId="4336dde9dd4e48999ccfac40d0a3f582" Name="Diagram1">
+        <EntityTypeShape EntityType="toursModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Ваучер" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Документы" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Заявки" Width="1.5" PointX="8.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Клиенты" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Отели" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Страны" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Тип_питания" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Тип_Тур" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="toursModel.Туры" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="toursModel.FK_Ваучер_Клиенты" ManuallyRouted="false" />
         <AssociationConnector Association="toursModel.FK_Документы_Клиенты" ManuallyRouted="false" />
         <AssociationConnector Association="toursModel.FK_Заявки_Клиенты" ManuallyRouted="false" />
         <AssociationConnector Association="toursModel.FK_Заявки_Тип_питания" ManuallyRouted="false" />
+        <AssociationConnector Association="toursModel.FK_Заявки_Туры" ManuallyRouted="false" />
         <AssociationConnector Association="toursModel.FK_Отели_Страны" ManuallyRouted="false" />
-        <AssociationConnector Association="toursModel.FK_Тур_Отель_Отели" ManuallyRouted="false" />
-        <AssociationConnector Association="toursModel.FK_Тип_Тур_Туры" ManuallyRouted="false" />
-        <AssociationConnector Association="toursModel.FK_Тур_Отель_Туры" ManuallyRouted="false" />
+        <AssociationConnector Association="toursModel.FK_Туры_Страны" ManuallyRouted="false" />
+        <AssociationConnector Association="toursModel.СвязьТипТур" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -21,6 +21,13 @@ namespace LabWPF
         {
         }
 
+        public static toursEntities GetContext()
+        {
+            if (_context == null)
+                _context = new toursEntities();
+            return _context;
+        }
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -35,7 +42,6 @@ namespace LabWPF
         public virtual DbSet<Страны> Страны { get; set; }
         public virtual DbSet<Тип_питания> Тип_питания { get; set; }
         public virtual DbSet<Тип_Тур> Тип_Тур { get; set; }
-        public virtual DbSet<Тур_Отель> Тур_Отель { get; set; }
         public virtual DbSet<Туры> Туры { get; set; }
     }
 }
