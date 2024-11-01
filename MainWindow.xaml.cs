@@ -15,7 +15,7 @@ namespace LabWPF
             InitializeComponent();
             MainFrame.Navigate(new ToursPage());
             Manager.MainFrame = MainFrame;
-            ImportTours();
+            //ImportTours();
         }
 
         private void ImportTours()
